@@ -6,7 +6,7 @@ msgid "OpenClash"
 msgstr "OpenClash"
 
 msgid "A Clash Client For OpenWrt"
-msgstr "一个运行在OpenWrt上的Clash客户端，兼容Shadowsocks、Vmess、trojan、Snell等协议，根据灵活的规则配置实现策略代理"
+msgstr "一个运行在OpenWrt上的Clash客户端，兼容Shadowsocks、Vmess、Trojan、Snell等协议，根据灵活的规则配置实现策略代理"
 
 msgid "Global Settings(Will Modify The Config File Or Subscribe According To The Settings On This Page)"
 msgstr "全局设置（将按照本页设置自动修改配置文件和获取订阅）"
@@ -65,11 +65,17 @@ msgstr "文件不存在"
 msgid "Not Set"
 msgstr "未设置"
 
-msgid "Server logs"
+msgid "Server Logs"
 msgstr "运行日志"
 
-msgid "Logs"
-msgstr "运行日志"
+msgid "Debug Logs"
+msgstr "调试日志"
+
+msgid "Generate Logs"
+msgstr "生成日志"
+
+msgid "Click to Generate"
+msgstr "点击生成"
 
 msgid "Enable Clash"
 msgstr "启动 OpenClash"
@@ -124,6 +130,15 @@ msgstr "Global【全局代理（需前往控制面板手动指定节点）】"
 
 msgid "Direct Proxy Mode"
 msgstr "Direct【全局直连】"
+
+msgid "Script Proxy Mode (Tun Core Only)"
+msgstr "Script【脚本模式 - 仅Tun内核】"
+
+msgid "Select Stack Type"
+msgstr "网络栈类型"
+
+msgid "Select Stack Type For Tun Mode, According To The Running Speed on Your Machine"
+msgstr "请自行根据运行速度为Tun模式选择合适的网络栈"
 
 msgid "Log Level"
 msgstr "日志等级"
@@ -197,7 +212,7 @@ msgstr "指定下方列表中域名的DNS服务器，只支持填写一个IP地�
 msgid "Domain Names In The List Do Not Return Fake-IP, One rule per line"
 msgstr "每行请只填写一个域名，列表中的域名在（Fake-IP模式）下查询DNS时将返回真实IP地址，更改后点击上方按钮生效"
 
-msgid "Fake-IP Block List Update"
+msgid "Fake-IP-Filter List Update"
 msgstr "更新Fake-IP域名黑名单"
 
 msgid "Set OpenClash Upstream DNS Resolve Server"
@@ -228,9 +243,9 @@ msgid "(Communication protocol)"
 msgstr "(通讯协议)"
 
 msgid "Enable ipv6 Resolve"
-msgstr "IPV6类型DNS解析"
+msgstr "允许IPV6类型DNS解析"
 
-msgid "Force Enable to Resolve ipv6 DNS Requests"
+msgid "Enable Clash to Resolve ipv6 DNS Requests"
 msgstr ""
 "固件须配置好IPV6的NAT，如你不使用IPV6请关闭固件的相关服务，避免客户端连接出现异常"
 
@@ -248,6 +263,9 @@ msgstr "上传文件类型"
 
 msgid "Proxy Provider File"
 msgstr "代理集文件"
+
+msgid "Rule Provider File"
+msgstr "规则集文件"
 
 msgid "Upload"
 msgstr "上传"
@@ -799,7 +817,7 @@ msgid "Game Rules Manage"
 msgstr "管理游戏规则"
 
 msgid "Proxy UDP Traffics"
-msgstr "*代理UDP流量"
+msgstr "*UDP流量转发"
 
 msgid "Select Mode For UDP Traffics, The Servers Must Support UDP while Choose Proxy"
 msgstr "启用时服务器必须支持UDP转发"
