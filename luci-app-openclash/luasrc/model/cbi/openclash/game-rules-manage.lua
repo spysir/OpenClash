@@ -10,7 +10,7 @@ local fs = require "luci.openclash"
 local uci = require "luci.model.uci".cursor()
 
 m = SimpleForm("openclash", translate("Game Rules List"))
-m.description=translate("规则项目: SSTap-Rule ( https://github.com/FQrabbit/SSTap-Rule )<br/>")
+m.description=translate("Rule Project:").." SSTap-Rule ( https://github.com/FQrabbit/SSTap-Rule )"
 m.reset = false
 m.submit = false
 
@@ -20,15 +20,15 @@ local t = {
 
 a = m:section(Table, t)
 
-o = a:option(Button, "Refresh")
+o = a:option(Button, "Refresh", " ")
 o.inputtitle = translate("Refresh Page")
 o.inputstyle = "apply"
 o.write = function()
   HTTP.redirect(DISP.build_url("admin", "services", "openclash", "game-rules-manage"))
 end
 
-o = a:option(Button, "Apply")
-o.inputtitle = translate("Back Configurations")
+o = a:option(Button, "Apply", " ")
+o.inputtitle = translate("Back Settings")
 o.inputstyle = "reset"
 o.write = function()
   HTTP.redirect(DISP.build_url("admin", "services", "openclash", "rule-providers-settings"))
@@ -55,8 +55,10 @@ e[t].filename=string.sub(luci.sys.exec(string.format("grep -F '%s,' /usr/share/o
 end
 RULE_FILE="/etc/openclash/game_rules/".. e[t].filename
 if fs.mtime(RULE_FILE) then
+e[t].size=fs.filesize(fs.stat(RULE_FILE).size)
 e[t].mtime=os.date("%Y-%m-%d %H:%M:%S",fs.mtime(RULE_FILE))
 else
+e[t].size="/"
 e[t].mtime="/"
 end
 if fs.isfile(RULE_FILE) then
@@ -78,6 +80,7 @@ st=tb:option(DummyValue,"exist",translate("State"))
 st.template="openclash/cfg_check"
 nm=tb:option(DummyValue,"name",translate("Rule Name"))
 fm=tb:option(DummyValue,"filename",translate("File Name"))
+sz=tb:option(DummyValue,"size",translate("Size"))
 mt=tb:option(DummyValue,"mtime",translate("Update Time"))
 
 btnis=tb:option(DummyValue,"filename",translate("Download Rule"))

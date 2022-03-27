@@ -6,8 +6,8 @@ local sys = require "luci.sys"
 local sid = arg[1]
 local fs = require "luci.openclash"
 
-font_red = [[<font color="red">]]
-font_off = [[</font>]]
+font_red = [[<b style=color:red>]]
+font_off = [[</b>]]
 bold_on  = [[<strong>]]
 bold_off = [[</strong>]]
 
@@ -57,6 +57,10 @@ o:value("file")
 
 o = s:option(Value, "name", translate("Provider Name"))
 o.rmempty = false
+o.default = "Proxy-provider - "..sid
+if not m.uci:get("openclash", sid, "name") then
+	m.uci:set("openclash", sid, "manual", 1)
+end
 
 o = s:option(ListValue, "path", translate("Provider Path"))
 o.description = translate("Update Your Proxy Provider File From Config Luci Page")
@@ -77,6 +81,10 @@ o:depends("type", "file")
 o = s:option(Value, "provider_url", translate("Provider URL"))
 o.rmempty = false
 o:depends("type", "http")
+
+o = s:option(Value, "provider_filter", translate("Provider Filter"))
+o.rmempty = true
+o.placeholder = "bgp|sg"
 
 o = s:option(Value, "provider_interval", translate("Provider Interval(s)"))
 o.default = "3600"
@@ -100,6 +108,7 @@ o.rmempty = false
 o = s:option(DynamicList, "groups", translate("Proxy Group"))
 o.description = font_red..bold_on..translate("No Need Set when Config Create, The added Proxy Groups Must Exist")..bold_off..font_off
 o.rmempty = true
+o:value("all", translate("All Groups"))
 m.uci:foreach("openclash", "groups",
 		function(s)
 			if s.name ~= "" and s.name ~= nil then
@@ -112,19 +121,19 @@ local t = {
 }
 a = m:section(Table, t)
 
-o = a:option(Button,"Commit")
-o.inputtitle = translate("Commit Configurations")
+o = a:option(Button,"Commit", " ")
+o.inputtitle = translate("Commit Settings")
 o.inputstyle = "apply"
 o.write = function()
    m.uci:commit(openclash)
    luci.http.redirect(m.redirect)
 end
 
-o = a:option(Button,"Back")
-o.inputtitle = translate("Back Configurations")
+o = a:option(Button,"Back", " ")
+o.inputtitle = translate("Back Settings")
 o.inputstyle = "reset"
 o.write = function()
-   m.uci:revert(openclash)
+   m.uci:revert(openclash, sid)
    luci.http.redirect(m.redirect)
 end
 

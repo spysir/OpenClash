@@ -5,14 +5,14 @@
 </h1>
 
   <p align="center">
-	<a target="_blank" href="https://github.com/Dreamacro/clash/releases/tag/v1.3.5">
-    <img src="https://img.shields.io/badge/Clash-v1.3.5-blue.svg">
+	<a target="_blank" href="https://github.com/Dreamacro/clash/releases/tag/v1.10.0">
+    <img src="https://img.shields.io/badge/Clash-v1.10.0-blue.svg">
   </a>
-  <a target="_blank" href="https://github.com/vernesong/OpenClash/tree/v0.41.14-beta">
-    <img src="https://img.shields.io/badge/source code-v0.41.14--beta-green.svg">
+  <a target="_blank" href="https://github.com/vernesong/OpenClash/tree/v0.44.34-beta">
+    <img src="https://img.shields.io/badge/source code-v0.44.34--beta-green.svg">
   </a>
-  <a target="_blank" href="https://github.com/vernesong/OpenClash/releases/tag/v0.41.14-beta">
-    <img src="https://img.shields.io/badge/New Release-v0.41.14--beta-orange.svg">
+  <a target="_blank" href="https://github.com/vernesong/OpenClash/releases/tag/v0.44.34-beta">
+    <img src="https://img.shields.io/badge/New Release-v0.44.34--beta-orange.svg">
   </a>
   </p>
   
@@ -52,7 +52,6 @@
 * coreutils-nohup
 * bash
 * curl
-* jsonfilter
 * ca-certificates
 * ipset
 * ip-full
@@ -84,7 +83,7 @@ git init
 git remote add -f origin https://github.com/vernesong/OpenClash.git
 git config core.sparsecheckout true
 echo "luci-app-openclash" >> .git/info/sparse-checkout
-git pull origin master
+git pull --depth 1 origin master
 git branch --set-upstream-to=origin/master master
 
 # 编译 po2lmo (如果有po2lmo可跳过)
@@ -129,7 +128,6 @@ make menuconfig
 * lhie1规则 [lhie1-Rules](https://github.com/lhie1/Rules) by [lhie1](https://github.com/lhie1)
 * ConnersHua规则 [ConnersHua-Rules](https://github.com/ConnersHua/Profiles/tree/master) by [ConnersHua](https://github.com/ConnersHua)
 * 游戏规则 [SSTap-Rule](https://github.com/FQrabbit/SSTap-Rule) by [FQrabbit](https://github.com/FQrabbit)
-* 订阅转换API [Api_Constructor](https://fndroid.github.io/api_constructor/) by [Fndroid](https://github.com/Fndroid)
 
 
 请作者喝杯咖啡

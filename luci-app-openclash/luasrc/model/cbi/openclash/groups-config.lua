@@ -6,8 +6,8 @@ local fs = require "luci.openclash"
 local sys = require "luci.sys"
 local sid = arg[1]
 
-font_red = [[<font color="red">]]
-font_off = [[</font>]]
+font_red = [[<b style=color:red>]]
+font_off = [[</b>]]
 bold_on  = [[<strong>]]
 bold_off = [[</strong>]]
 
@@ -52,11 +52,11 @@ end
 o = s:option(ListValue, "type", translate("Group Type"))
 o.rmempty = true
 o.description = translate("Choose The Operation Mode")
-o:value("select", translate("Select　"))
+o:value("select", translate("Manual-Select"))
 o:value("url-test", translate("URL-Test"))
 o:value("fallback", translate("Fallback"))
 o:value("load-balance", translate("Load-Balance"))
-o:value("relay", translate("Relay Traffic"))
+o:value("relay", translate("Relay-Traffic"))
 
 o = s:option(ListValue, "strategy", translate("Strategy Type"))
 o.rmempty = true
@@ -67,6 +67,7 @@ o:depends("type", "load-balance")
 
 o = s:option(Value, "name", translate("Group Name"))
 o.rmempty = false
+o.default = "Group - "..sid
 
 o = s:option(ListValue, "disable_udp", translate("Disable UDP"))
 o:value("false", translate("Disable"))
@@ -94,6 +95,16 @@ o.default = "150"
 o.rmempty = true
 o:depends("type", "url-test")
 
+-- [[ interface-name ]]--
+o = s:option(Value, "interface_name", translate("interface-name"))
+o.rmempty = true
+o.placeholder = translate("eth0")
+
+-- [[ routing-mark ]]--
+o = s:option(Value, "routing_mark", translate("routing-mark"))
+o.rmempty = true
+o.placeholder = translate("2333")
+
 o = s:option(DynamicList, "other_group", translate("Other Group"))
 o.description = font_red..bold_on..translate("The Added Proxy Groups Must Exist Except 'DIRECT' & 'REJECT'")..bold_off..font_off
 uci:foreach("openclash", "groups",
@@ -111,8 +122,8 @@ local t = {
 }
 a = m:section(Table, t)
 
-o = a:option(Button,"Commit")
-o.inputtitle = translate("Commit Configurations")
+o = a:option(Button,"Commit", " ")
+o.inputtitle = translate("Commit Settings")
 o.inputstyle = "apply"
 o.write = function()
    m.uci:commit(openclash)
@@ -120,11 +131,11 @@ o.write = function()
    luci.http.redirect(m.redirect)
 end
 
-o = a:option(Button,"Back")
-o.inputtitle = translate("Back Configurations")
+o = a:option(Button,"Back", " ")
+o.inputtitle = translate("Back Settings")
 o.inputstyle = "reset"
 o.write = function()
-   m.uci:revert(openclash)
+   m.uci:revert(openclash, sid)
    luci.http.redirect(m.redirect)
 end
 
